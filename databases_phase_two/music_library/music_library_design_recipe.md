@@ -104,6 +104,19 @@ class AlbumRepository
 
     # Returns an array of Album objects.
   end
+
+  # Finding one record
+  # Taking the record id as an argument
+  def find(id)
+    sql = "SELECT id, title, release_year, artist_id FROM albums WHERE id = $3;"
+
+    params = [id]
+
+    result_set = DatabaseConnection.exec_params(sql, params)
+    record = result_set[0]
+
+    # (The code now needs to convert the result to an Album object and return it)
+  end
 end
 
 
@@ -115,16 +128,38 @@ Write Ruby code that defines the expected behaviour of the Repository class, fol
 These examples will later be encoded as RSpec tests.
 
 # 1
-# Get all albums
+# Get all albums - #all
 
 repo = AlbumRepository.new
-
 albums = repo.all
 
   albums.length => 2
   albums.first.id => 1
   albums.last.id => 11
   albums.last.title => 'Fodder on My Wings'
+
+
+# 2
+# Find an album - #find(id)
+
+# 1
+repo = AlbumRepository.new
+album = repo.find($3)
+
+  album.id => 3
+  album.title => 'Waterloo'
+  album.release_year => 1972
+  album.artist_id => 2
+
+# 2
+
+repo = AlbumRepository.new
+album = repo.find(1)
+
+  expect(album.id).to eq '1'
+  expect(album.title).to eq 'Doolittle'
+  expect(album.release_year).to eq '1989'
+  expect(album.artist_id).to eq '1'
 
 
 
@@ -169,19 +204,18 @@ Running the SQL code present in the seed file will empty the table and re-insert
 
 This is so you get a fresh table contents every time you run the test suite.
 
-# EXAMPLE
 
-# file: spec/student_repository_spec.rb
+# file: spec/album_repository_spec.rb
 
-def reset_students_table
-  seed_sql = File.read('spec/seeds_students.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'students' })
+def reset_albums_table
+  seed_sql = File.read('spec/seeds_albums.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'music_library_test' })
   connection.exec(seed_sql)
 end
 
-describe StudentRepository do
+describe AlbumRepository do
   before(:each) do 
-    reset_students_table
+    reset_albums_table
   end
 
   # (your tests will go here).
