@@ -47,4 +47,24 @@ RSpec.describe AlbumRepository do
       expect(album.artist_id).to eq '1'
     end
   end
+
+  describe "#create(album)" do
+    it "adds a new album to the albums table" do
+      repo = AlbumRepository.new
+
+      new_album = Album.new
+      new_album.title = 'Indie Cindy'
+      new_album.release_year = '2014'
+      new_album.artist_id = '1'
+      
+      repo.create(new_album)
+      
+      albums = repo.all
+      
+      expect(albums.last.id).to eq '12'
+      expect(albums.last.title).to eq 'Indie Cindy'
+      expect(albums.last.release_year).to eq '2014'
+      expect(albums.last.artist_id).to eq '1'
+    end
+  end
 end

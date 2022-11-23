@@ -108,7 +108,7 @@ class AlbumRepository
   # Finding one record
   # Taking the record id as an argument
   def find(id)
-    sql = "SELECT id, title, release_year, artist_id FROM albums WHERE id = $3;"
+    sql = "SELECT id, title, release_year, artist_id FROM albums WHERE id = $1;"
 
     params = [id]
 
@@ -116,6 +116,13 @@ class AlbumRepository
     record = result_set[0]
 
     # (The code now needs to convert the result to an Album object and return it)
+  end
+
+  # Creating a new record
+  # Taking the new instance of Album as an argument
+  def create(album)
+    # sql = "INSERT INTO albums (title, release_year, artist_id) VALUES ($1, $2, $3)
+
   end
 end
 
@@ -144,7 +151,7 @@ albums = repo.all
 
 # 1
 repo = AlbumRepository.new
-album = repo.find($3)
+album = repo.find(3)
 
   album.id => 3
   album.title => 'Waterloo'
@@ -160,6 +167,28 @@ album = repo.find(1)
   expect(album.title).to eq 'Doolittle'
   expect(album.release_year).to eq '1989'
   expect(album.artist_id).to eq '1'
+
+
+# 3
+# Create a new album = #create(album)
+
+repo = AlbumRepository.new
+
+album = Album.new
+Album.title = 'Indie Cindy'
+Album.release_year = '2014'
+Album.artist_id = '1'
+
+repo.create(album)
+
+albums = repo.all
+expect(albums.last.id).to eq '12'
+expect(albums.last.title).to eq 'Indie Cindy'
+expect(albums.last.release_year).to eq '2014'
+expect(albums.last.artist_id).to eq '1'
+
+
+
 
 
 
