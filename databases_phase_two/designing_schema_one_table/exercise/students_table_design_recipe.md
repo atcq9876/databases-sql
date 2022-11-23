@@ -60,4 +60,4 @@ CREATE TABLE "students" (
 
 
 5. Create the table.
-psql -h 127.0.0.1 students < students_table.sql
+psql -h 127.0.0.1 student_directory_1 < students_table.sql
