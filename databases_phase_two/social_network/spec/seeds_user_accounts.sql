@@ -2,7 +2,8 @@
 -- so we can start with a fresh state.
 -- (RESTART IDENTITY resets the primary key)
 
-TRUNCATE TABLE user_accounts RESTART IDENTITY;
+-- TRUNCATE TABLE user_accounts RESTART IDENTITY;
+TRUNCATE TABLE user_accounts CASCADE;
 
 -- Below this line there should only be `INSERT` statements.
 -- Replace these statements with your own seed data.

@@ -119,7 +119,7 @@ end
 
 class Post
   # Replace the attributes by your own columns.
-  attr_accessor :id, :name, :content, :views, :user_account_id
+  attr_accessor :id, :title, :content, :views, :user_account_id
 end
 
 
@@ -202,7 +202,7 @@ class PostRepository
   # No arguments
   def all
     # Executes the SQL query below:
-    sql = "SELECT id, name, content, views, user_account_id FROM posts;"
+    sql = "SELECT id, title, content, views, user_account_id FROM posts;"
     result_set = DatabaseConnection.exec_params(sql, [])
 
     posts = []
@@ -214,7 +214,7 @@ class PostRepository
   # Finding one record
   # Taking the record id as an argument
   def find(id)
-    sql = "id, name, content, views, user_account_id FROM posts WHERE id = $1;"
+    sql = "id, title, content, views, user_account_id FROM posts WHERE id = $1;"
 
     params = [id]
 
@@ -227,8 +227,8 @@ class PostRepository
 
   # Creating a new post record (takes an instance of Post)
   def create(post)
-    sql = "INSERT INTO posts (name, content, views, user_account_id) VALUES($1, $2, $3, $4);"
-    params = [post.name, post.content, post.views, post.user_account_id]
+    sql = "INSERT INTO posts (title, content, views, user_account_id) VALUES($1, $2, $3, $4);"
+    params = [post.title, post.content, post.views, post.user_account_id]
     DatabaseConnection.exec_params(sql, params)
   end
 
