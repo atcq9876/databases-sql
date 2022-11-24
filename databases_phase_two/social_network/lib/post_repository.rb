@@ -10,37 +10,56 @@ class PostRepository
 
     posts = []
 
-    # loop through results and create an array of user_account objects
-    # Return array of user_account objects.
+    result_set.each do |record|
+      post = Post.new
+      post.id = record["id"]
+      post.title = record["title"]
+      post.content = record["content"]
+      post.views = record["views"]
+      post.user_account_id = record["user_account_id"]
+
+      posts << post
+    end
+
+    return posts
   end
 
-  # # Finding one record
-  # # Taking the record id as an argument
-  # def find(id)
-  #   sql = "id, title, content, views, user_account_id FROM posts WHERE id = $1;"
+  # Finding one record
+  # Taking the record id as an argument
+  def find(id)
+    sql = "SELECT id, title, content, views, user_account_id FROM posts WHERE id = $1;"
 
-  #   params = [id]
+    params = [id]
 
-  #   result_set = DatabaseConnection.exec_params(sql, params)
-  #   record = result_set[0]
+    result_set = DatabaseConnection.exec_params(sql, params)
+    record = result_set[0]
 
-  #   # (The code now needs to convert the result to an Album object and return it)
-  # end
+    post = Post.new
+    post.id = record["id"]
+    post.title = record["title"]
+    post.content = record["content"]
+    post.views = record["views"]
+    post.user_account_id = record["user_account_id"]
+
+    return post
+  end
 
 
-  # # Creating a new post record (takes an instance of Post)
-  # def create(post)
-  #   sql = "INSERT INTO posts (title, content, views, user_account_id) VALUES($1, $2, $3, $4);"
-  #   params = [post.title, post.content, post.views, post.user_account_id]
-  #   DatabaseConnection.exec_params(sql, params)
-  # end
+  # Creating a new post record (takes an instance of Post)
+  def create(post)
+    sql = "INSERT INTO posts (title, content, views, user_account_id) VALUES($1, $2, $3, $4);"
+    params = [post.title, post.content, post.views, post.user_account_id]
+    DatabaseConnection.exec_params(sql, params)
+    return nil
+  end
 
 
-  # def delete(id)
-  #   sql = "DELETE FROM posts WHERE id = $1"
-  #   params = [id]
-  #   DatabaseConnection.exec_params(sql, params)
-  # end
+  def delete(id)
+    sql = "DELETE FROM posts WHERE id = $1"
+    params = [id]
+    DatabaseConnection.exec_params(sql, params)
+    return nil
+  end
 
 
   # # def update(user_account)

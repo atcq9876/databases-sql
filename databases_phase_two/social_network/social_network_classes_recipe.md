@@ -455,6 +455,14 @@ def reset_user_accounts_table
   connection.exec(seed_sql)
 end
 
+# PostRepository tests
+def reset_posts_table
+  seed_sql = File.read('spec/seeds_posts.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'social_network_test' })
+  connection.exec(seed_sql)
+end
+
+# UserAccountRepositry tests
 describe UserAccountRepository do
   before(:each) do 
     reset_user_accounts_table
@@ -463,14 +471,7 @@ describe UserAccountRepository do
   # (your tests will go here).
 end
 
-
 # PostRepository tests
-def reset_posts_table
-  seed_sql = File.read('spec/seeds_posts.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'social_network_test' })
-  connection.exec(seed_sql)
-end
-
 describe PostRepository do
   before(:each) do 
     reset_posts_table
