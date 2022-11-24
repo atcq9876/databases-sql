@@ -121,7 +121,7 @@ class AlbumRepository
   # Creating a new record
   # Taking the new instance of Album as an argument
   def create(album)
-    # sql = "INSERT INTO albums (title, release_year, artist_id) VALUES ($1, $2, $3)
+    # sql = "INSERT INTO albums (title, release_year, artist_id) VALUES ($1, $2, $3)"
 
   end
 end
