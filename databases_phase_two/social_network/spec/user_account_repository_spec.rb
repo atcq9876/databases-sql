@@ -77,4 +77,21 @@ RSpec.describe UserAccountRepository do
       expect(user_accounts.last.username).to eq '1lewis23'
     end
   end
+
+  describe "#update(user_account)" do
+    it "updates the user_account's values" do
+      repo = UserAccountRepository.new
+      user_account = repo.find(1)
+      user_account.name = 'New'
+      user_account.email_address = 'new@gmail.com'
+      user_account.username = 'new_username'
+
+      repo.update(user_account)
+      updated_user_account = repo.find(1)
+      expect(updated_user_account.id).to eq "1"
+      expect(updated_user_account.name).to eq "New"
+      expect(updated_user_account.email_address).to eq "new@gmail.com"
+      expect(updated_user_account.username).to eq "new_username"
+    end
+  end
 end

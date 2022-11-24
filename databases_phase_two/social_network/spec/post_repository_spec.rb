@@ -81,4 +81,23 @@ RSpec.describe PostRepository do
       expect(posts.last.user_account_id).to eq '2'
     end
   end
+
+  describe "#update(post)" do
+    it "updates the post's values" do
+      repo = PostRepository.new
+      post = repo.find(1)
+      post.title = 'New post'
+      post.content = 'New new new'
+      post.views = '3'
+      post.user_account_id = '2'
+
+      repo.update(post)
+      updated_post = repo.find(1)
+      expect(updated_post.id).to eq "1"
+      expect(updated_post.title).to eq "New post"
+      expect(updated_post.content).to eq "New new new"
+      expect(updated_post.views).to eq "3"
+      expect(updated_post.user_account_id).to eq "2"
+    end
+  end
 end

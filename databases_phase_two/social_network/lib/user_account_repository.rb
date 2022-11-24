@@ -60,6 +60,10 @@ class UserAccountRepository
   end
 
 
-  # # def update(user_account)
-  # # end
+  def update(user_account)
+    sql = "UPDATE user_accounts SET name = $1, email_address = $2, username = $3 WHERE id = $4;"
+    params = [user_account.name, user_account.email_address, user_account.username, user_account.id]
+    DatabaseConnection.exec_params(sql, params)
+    return nil
+  end
 end
