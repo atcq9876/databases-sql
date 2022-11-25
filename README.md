@@ -1,6 +1,6 @@
 # databases-sql
 
-This repo was made for the Databases module of the Makers bootcamp (week 3). The objectives of this module were to:
+This repo was made for the Databases module of the Makers bootcamp (week three). The objectives of this module were to:
 
 - Design a database schema with at least two tables from a specification, including a one-to-many relationship between two tables, and create the schema in a database using SQL.
 - Use SQL to query a database to read data from one table or resulting of a join, create new records, update and delete.
