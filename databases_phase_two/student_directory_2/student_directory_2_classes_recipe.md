@@ -292,7 +292,7 @@ These examples will later be encoded as RSpec tests.
 # 1 Find cohorts with students - #find_with_students
 
 repo = CohortRepository.new
-cohort = find_with_students(1)
+cohort = repo.find_with_students(1)
 
 expect(cohort.name).to eq 'One'
 expect(cohort.starting_date).to eq '2022-09-01'
