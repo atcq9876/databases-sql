@@ -153,7 +153,7 @@ Using comments, define the method signatures (arguments and return value) and wh
 
 # Repository class
 # (in lib/post_repository.rb)
-class CohortRepository
+class PostRepository
   <!-- # Selecting all records
   # No arguments
   def all
@@ -246,8 +246,8 @@ end
 # 2 Table name: tags
 
 # Repository class
-# (in lib/Student_repository.rb)
-class StudentRepository
+# (in lib/tag_repository.rb)
+class TagRepository
   <!-- # Selecting all records
   # No arguments
   def all
@@ -324,10 +324,10 @@ These examples will later be encoded as RSpec tests.
 
 # posts
 
-# Find posts by tag - #find_posts_by_tag
+# Find posts by tag - #find_by_tag
 
 repo = PostRepository.new
-posts = repo.find_posts_by_tag(1)
+posts = repo.find_by_tag(1)
 
 expect(posts.length).to eq 4
 expect(posts[0].id).to eq '1'
@@ -492,10 +492,10 @@ expect(post_id).to eq '2' -->
 # tags
 
 
-# Find tags by post - #find_tags_by_post
+# Find tags by post - #find_by_post
 
 repo = TagRepository.new
-tags = repo.find_tags_by_post(6)
+tags = repo.find_by_post(6)
 
 expect(tags.length).to eq 2
 expect(tags[0].id).to eq '2'
@@ -551,14 +551,14 @@ This is so you get a fresh table contents every time you run the test suite.
 
 # file: spec/post_repository_spec.rb
 
-# Repositry tests
+# Repository tests
 def reset_tables
   seed_sql = File.read('spec/seeds_blog_posts_tags.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'blog_posts_tags_test' })
   connection.exec(seed_sql)
 end
 
-describe CohortRepository do
+describe PostRepository do
   before(:each) do 
     reset_tables
   end
